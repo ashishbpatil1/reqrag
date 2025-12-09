@@ -5,14 +5,19 @@ Python 3.11+: Download Windows Installer
 VS Code: Recommended editor.
 Ollama (Optional local LLM): Download for Windows
 Step 1: Install & Setup Ollama
+
 Download Ollama from ollama.ai (works on Windows, macOS, Linux).
+
 Install a model (e.g., LLaMA 3.1 or Mistral) by running this in your terminal:
+
 ollama pull llama3
 # or
 ollama pull mistral
 
 (Note: Keep the Ollama app running in the background).
+
 2. Create Project Environment
+
 Open PowerShell in Admin mode and run:
 mkdir reqrag
 cd reqrag
@@ -53,6 +58,7 @@ Optional Packages (API & Fine-Tuning)
 If you plan to run the API or fine-tune models later:
 # Web API (FastAPI)
 pip install fastapi uvicorn pydantic httpx
+
 
 # Fine-Tuning (GPU recommended)
 pip install torch --index-url https://download.pytorch.org/whl/cu121
