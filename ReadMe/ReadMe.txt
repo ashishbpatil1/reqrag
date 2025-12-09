@@ -1,126 +1,49 @@
-1) Prerequisites & Setup (Windows friendly)
-
-Install
-Python 3.11+ -> https://www.python.org/ftp/python/3.13.7/python-3.13.7-amd64.exe
-VS Code 
-(Optional local LLM) Ollama llama3.1:8b -> https://ollama.com/download/windows
-
-
-2) Create project:
-# In PowerShell admin mode:
-
-mkdir reqrag && cd reqrag
-python -m venv .venv
-Set-ExecutionPolicy Unrestricted -Force
-.\.venv\Scripts\Activate.ps1
-
-3) Install Python packages
-CPU‑only is fine for RAG. Fine‑tuning needs a GPU; keep those packages optional.
-pip install chromadb sentence-transformers pypdf python-docx unstructured
-pip install fastapi uvicorn pydantic
-pip install httpx tqdm numpy pandas
-# Optional, for local LLM via Ollama client
-pip install ollama
-# Optional, for Transformers pipeline (CPU ok for inference; slow)
-pip install transformers accelerate
-# Optional, for fine-tuning (GPU recommended)
-pip install torch --index-url https://download.pytorch.org/whl/cu121 # or 'pip install torch' for CPU
-pip install peft trl datasets bitsandbytes # bitsandbytes requires CUDA; skip if CPU-only
-
-Installed Packages So Far
-🔹 Core for RAG (retrieval + embeddings)
-pip install chromadb
-pip install sentence-transformers
-
-
-chromadb → local vector database (stores requirement embeddings).
-
-sentence-transformers → embedding model (MiniLM) for similarity search.
-
-🔹 Document Processing (PDF/DOCX)
-pip install pypdf
-pip install python-docx
-pip install unstructured
-
-
-pypdf → read/extract text from PDF files.
-
-python-docx → read Word (.docx) documents.
-
-unstructured → more robust document parsing (optional but handy).
-
-🔹 Web API (for microservices / UI integration)
-pip install fastapi uvicorn pydantic
-pip install httpx
-
-
-fastapi → REST API backend (Python microservice).
-
-uvicorn → ASGI server to run FastAPI.
-
-pydantic → input/output data validation.
-
-httpx → HTTP client (if Python service calls other APIs).
-
-🔹 Data Handling / Utilities
-pip install tqdm numpy pandas
-
-
-tqdm → progress bars in loops.
-
-numpy → math & arrays (used under the hood by embeddings).
-
-pandas → for tabular data + Excel export.
-
-🔹 Excel Export
-pip install openpyxl
-
-
-openpyxl → required by pandas to write .xlsx.
-
-
-Step 1: Install Ollama
-
-Download Ollama from https://ollama.ai
-
-(works on Windows, macOS, Linux).
-
-Install a model, e.g. LLaMA 3.1 or Mistral:
-
-ollama pull llama3
+ReqRAG: Requirements RAG Assistance1. Prerequisites & Setup (Windows friendly)Install Base ToolsPython 3.11+: Download Windows InstallerVS Code: Recommended editor.Ollama (Optional local LLM): Download for WindowsStep 1: Install & Setup OllamaDownload Ollama from ollama.ai (works on Windows, macOS, Linux).Install a model (e.g., LLaMA 3.1 or Mistral) by running this in your terminal:ollama pull llama3
 # or
 ollama pull mistral
 
-🔹 Step 2: Install Python client for Ollama 🔹 Local LLM (optional, if you want AI refinement)
-pip install ollama
+(Note: Keep the Ollama app running in the background).2. Create Project EnvironmentOpen PowerShell in Admin mode and run:mkdir reqrag
+cd reqrag
+python -m venv .venv
 
+# CAUTION: 'Unrestricted' lowers security. For production/safer dev, use 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser'
+Set-ExecutionPolicy Unrestricted -Force
+.\.venv\Scripts\Activate.ps1
 
-ollama → Python client for local models (Llama, Mistral, etc.).
+3. Install Python PackagesYou can install the core packages needed for the RAG pipeline using pip.Core for RAG (Retrieval + Embeddings)pip install chromadb sentence-transformers
 
-Works with the Ollama desktop app running in background.
+chromadb: Local vector database (stores requirement embeddings).sentence-transformers: Embedding model (MiniLM) for similarity search.Document Processing (PDF/DOCX)pip install pypdf python-docx
 
+pypdf: Read/extract text from PDF files.python-docx: Read Word (.docx) documents.(Optional) pip install unstructured: More robust document parsing.Data Handling / Utilitiespip install tqdm numpy pandas openpyxl
 
-4) Project structure
+tqdm: Progress bars.numpy: Math & arrays.pandas + openpyxl: Excel export handling.Local LLM Client (for AI Refinement)pip install ollama
 
-reqrag/
-data/
-raw/ # put your PDFs/DOCX here
-processed/ # auto-generated chunks JSONL
-index/ # Chroma DB files
-configs/
-app.yaml
-app/
-__init__.py
-preprocess.py
-build_index.py
-rag.py
-prompts.py
-api.py
-finetune/
-examples.jsonl
-sft_dataset.jsonl
-finetune_lora.py
-client/
-csharp_sample.cs
-README.md
+Optional Packages (API & Fine-Tuning)If you plan to run the API or fine-tune models later:# Web API (FastAPI)
+pip install fastapi uvicorn pydantic httpx
+
+# Fine-Tuning (GPU recommended)
+pip install torch --index-url [https://download.pytorch.org/whl/cu121](https://download.pytorch.org/whl/cu121)
+pip install transformers accelerate peft trl datasets bitsandbytes
+
+4. Project Structurereqrag/
+├── data/
+│   ├── raw/              # Put your PDFs/DOCX here
+│   ├── processed/        # Auto-generated chunks (JSONL/TXT)
+│   └── chroma_db/        # Chroma DB files
+├── configs/
+│   └── app.yaml
+├── app/
+│   ├── __init__.py
+│   ├── preprocess.py     # Cleaning & Chunking script
+│   ├── build_index.py    # Vector DB creation script
+│   ├── rag.py            # Main RAG logic & Excel generation
+│   ├── prompts.py        # Prompt templates
+│   └── api.py            # (Optional) FastAPI backend
+├── finetune/             # (Optional) Fine-tuning scripts
+│   ├── examples.jsonl
+│   ├── sft_dataset.jsonl
+│   └── finetune_lora.py
+├── client/
+│   └── csharp_sample.cs
+└── README.md
 
