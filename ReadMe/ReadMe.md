@@ -5,11 +5,11 @@
 
 #### Install Base Tools
 
-Python 3.11+: Download Windows Installer
+Python 3.11+: [Download Windows Installer](https://www.python.org/ftp/python/3.13.7/python-3.13.7-amd64.exe)
 
 VS Code: Recommended editor.
 
-Ollama (Optional local LLM): Download for Windows
+Ollama (Optional local LLM): [Download for Windows](https://ollama.com/download/windows)
 
 ### Step 1: Install & Setup Ollama
 
