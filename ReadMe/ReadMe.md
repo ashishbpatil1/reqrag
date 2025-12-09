@@ -88,23 +88,23 @@ pip install transformers accelerate peft trl datasets bitsandbytes
 
 
 ## Project Structure
-reqrag/
-├── data/
-│   ├── raw/              # Put your PDFs/DOCX here
-│   ├── processed/        # Auto-generated chunks (JSONL/TXT)
-│   └── chroma_db/        # Chroma DB files
-├── configs/
-│   └── app.yaml # (Optional- Future use)
-├── app/
-│   ├── __init__.py       # (Optional- Future use)
-│   ├── preprocess.py     # Cleaning & Chunking script
-│   ├── build_index.py    # Vector DB creation script
-│   ├── rag.py            # Main RAG logic & Excel generation
-│   ├── prompts.py        # Prompt templates (Optional- Future use)
-│   └── api.py            # (Optional- Future use) FastAPI backend
-├── finetune/             # (Optional- Future use) Fine-tuning scripts
-│   ├── examples.jsonl    # (Optional- Future use)
-│   ├── sft_dataset.jsonl # (Optional- Future use)
-│   └── finetune_lora.py  # (Optional- Future use)
-└── README/
-    └── readme.md
+reqrag/  
+├── data/  
+│   ├── raw/              # Put your PDFs/DOCX here  
+│   ├── processed/        # Auto-generated chunks (JSONL/TXT)  
+│   └── chroma_db/        # Chroma DB files  
+├── configs/  
+│   └── app.yaml # (Optional- Future use)  
+├── app/  
+│   ├── __init__.py       # (Optional- Future use)  
+│   ├── preprocess.py     # Cleaning & Chunking script  
+│   ├── build_index.py    # Vector DB creation script  
+│   ├── rag.py            # Main RAG logic & Excel generation  
+│   ├── prompts.py        # Prompt templates (Optional- Future use)  
+│   └── api.py            # (Optional- Future use) FastAPI backend  
+├── finetune/             # (Optional- Future use) Fine-tuning scripts  
+│   ├── examples.jsonl    # (Optional- Future use)  
+│   ├── sft_dataset.jsonl # (Optional- Future use)  
+│   └── finetune_lora.py  # (Optional- Future use)  
+└── README/  
+    └── readme.md  
